@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * 0'
 
 env:
-  AWS_REGION: us-east-2
+  AWS_REGION: us-east-1
   ECR_REPOSITORY: deploy-stack-nuxt-example-repo
   ECS_CLUSTER: deploy-stack-nuxt-example-cluster
   ECS_SERVICE: deploy-stack-nuxt-example-service

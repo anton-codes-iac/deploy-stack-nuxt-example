@@ -1,6 +1,6 @@
 # deploy-stack generated infrastructure
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
 
   default_tags {
     tags = {
@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "app" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = aws_cloudwatch_log_group.app_logs.name
-          "awslogs-region"        = "us-east-2"
+          "awslogs-region"        = "us-east-1"
           "awslogs-stream-prefix" = "ecs"
         }
       }
@@ -137,7 +137,7 @@ resource "aws_lb_target_group" "app" {
   target_type = "ip"
 
   health_check {
-    path                = "/api/health"
+    path                = "/"
     matcher             = "200-399"
     interval            = 30
     timeout             = 5
@@ -198,8 +198,8 @@ resource "aws_iam_role_policy" "secrets_policy" {
 }
 
 # --- Outputs ---
-output "website_url" {
-  description = "The public URL of your load balancer"
+output "alb_direct_url" {
+  description = "Direct Load Balancer URL (Bypasses CloudFront/CDN)"
   value       = "http://${aws_lb.main.dns_name}"
 }
 
